@@ -1,4 +1,6 @@
-package com.pms.gianttreecompat;
+package com.pms.gianttreecompat.mixin;
+
+import com.pms.gianttreecompat.GiantGrowthBridge;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

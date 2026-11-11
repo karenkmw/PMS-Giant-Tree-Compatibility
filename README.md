@@ -1,4 +1,4 @@
-# PMS Giant Tree Compatibility — v0.1.0 (experimental source)
+# PMS Giant Tree Compatibility — v0.1.1 (experimental source)
 
 Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21.
 
@@ -19,10 +19,14 @@ Build manually with `gradle build` (Gradle 8.10.2 and JDK 21 required). Requires
 
 ## Important test notes
 
-1. Remove the old `nml-gianttree-compat-0.1.0-experimental.jar` or renamed copy before installing this new build; don't run both.
+1. Remove the old `nml-gianttree-compat-0.1.1-experimental.jar` or renamed copy before installing this new build; don't run both.
 2. Install alongside Giant Tree 1.0.1, Biomes O' Plenty, and Herbs & Harvest. The normal mods are NOT bundled.
 3. Test on the temporary test server and make a world backup first. This is not yet runtime-verified.
 4. Test BOP Jacaranda and eight Herbs & Harvest fruit saplings already configured in gianttree.json.
 5. A successful compile or antivirus scan does not establish Minecraft runtime compatibility. Inspect server logs if startup fails.
 
 The mod is currently intended for server-side growth compatibility; the mod metadata uses BOTH to permit installation in matching client/server modpacks.
+
+
+## v0.1.1 startup fix
+The mixin was moved to `com.pms.gianttreecompat.mixin` so the Mixin classloader no longer reserves the `@Mod` entrypoint package. The giant-tree growth logic is unchanged.
