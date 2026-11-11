@@ -1,0 +1,38 @@
+plugins {
+    id 'java'
+    id 'net.neoforged.moddev' version '2.0.124'
+}
+
+group = 'com.pms'
+version = '0.1.0'
+base.archivesName = 'pms-giant-tree-compatibility'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    version = '21.1.265'
+    runs {
+        client { client() }
+        server { server() }
+    }
+    mods {
+        pmsgianttreecompat { sourceSet sourceSets.main }
+    }
+}
+
+repositories {
+    maven {
+        url = 'https://cursemaven.com'
+        content { includeGroup 'curse.maven' }
+    }
+}
+
+dependencies {
+    // Giant Tree is a compile-only dependency. Players install the normal mod separately.
+    // CurseForge project 1613496, file 8854491: Giant Tree 1.0.1 NeoForge 1.21.1
+    compileOnly 'curse.maven:giant-tree-1613496:8854491'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}

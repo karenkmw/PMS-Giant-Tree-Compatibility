@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.pms.gianttreecompat",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "CustomSaplingGrowthMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
