@@ -1,32 +1,11 @@
-# PMS Giant Tree Compatibility — v0.1.1 (experimental source)
+# PMS Giant Tree Compatibility — BOP growth fix (0.1.3)
 
-Minecraft 1.21.1 / NeoForge 21.1.265 / Java 21.
+Targeted experimental update based on tested server-starting v0.1.1.
 
-This is a **new, untested Gradle build** of the previously experimental compatibility bridge. It changes the mod ID and package from `nmlgianttreecompat` to `pmsgianttreecompat`, and compiles against the published Giant Tree 1.0.1 JAR from Curse Maven rather than temporary Java stub classes.
+- Adds `BOPBonemealMixin` to intercept `SaplingBlockBOP.performBonemeal`, the method that actually invokes tree generation in the supplied Biomes O’ Plenty JAR.
+- Keeps existing `advanceTree` interception unchanged for BOP and Herbs & Harvest.
+- Keeps the 5+ horizontally connected, stage-1 sapling condition; a 3×3 grid meets the quantity requirement.
+- No changes to Giant Tree JSON, fruit-tree logic, or wood mappings.
+- Packaging remains compatible with GitHub Actions. Do not replace `.github`.
 
-## Scope
-
-- Intercepts `advanceTree` in Biomes O' Plenty `SaplingBlockBOP` and Herbs & Harvest `MHHSaplingBlock`.
-- Only attempts Giant Tree activation if a configured sapling has STAGE=1 and more than four connected saplings.
-- Reuses Giant Tree's own `TreeCoreBlockEntity` and existing gianttree.json configuration.
-- Does not change the original Giant Tree mod or any config files.
-
-## Build
-
-GitHub Actions automatically builds with Java 21, Gradle 8.10.2, NeoForge ModDevGradle, installs and updates ClamAV, scans the built JAR, then uploads the artifact only if the build and scan succeed.
-
-Build manually with `gradle build` (Gradle 8.10.2 and JDK 21 required). Requires network access to resolve NeoForge and Curse Maven dependencies.
-
-## Important test notes
-
-1. Remove the old `nml-gianttree-compat-0.1.1-experimental.jar` or renamed copy before installing this new build; don't run both.
-2. Install alongside Giant Tree 1.0.1, Biomes O' Plenty, and Herbs & Harvest. The normal mods are NOT bundled.
-3. Test on the temporary test server and make a world backup first. This is not yet runtime-verified.
-4. Test BOP Jacaranda and eight Herbs & Harvest fruit saplings already configured in gianttree.json.
-5. A successful compile or antivirus scan does not establish Minecraft runtime compatibility. Inspect server logs if startup fails.
-
-The mod is currently intended for server-side growth compatibility; the mod metadata uses BOTH to permit installation in matching client/server modpacks.
-
-
-## v0.1.1 startup fix
-The mixin was moved to `com.pms.gianttreecompat.mixin` so the Mixin classloader no longer reserves the `@Mod` entrypoint package. The giant-tree growth logic is unchanged.
+This fixes an uncovered BOP growth path; success must still be established by an in-game test. It is not a comprehensive fix for all possible BOP growth failures.
